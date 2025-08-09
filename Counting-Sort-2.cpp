@@ -13,8 +13,6 @@ vector<string> split(const string &);
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-
-
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
@@ -54,3 +52,20 @@ int main()
     return 0;
 }
 
+string ltrim(const string &str)
+{
+    string s(str);
+    s.erase(
+        s.begin(), find_if(s.begin(), s.end(), [](unsigned char ch) { return !isspace(ch); })
+    );
+    return s;
+}
+
+string rtrim(const string &str)
+{
+    string s(str);
+    s.erase(
+        find_if(s.rbegin(), s.rend(), [](unsigned char ch) { return !isspace(ch); }).base(), s.end()
+    );
+    return s;
+}
