@@ -6,48 +6,51 @@ string ltrim(const string &);
 string rtrim(const string &);
 vector<string> split(const string &);
 
-template <typename T>
-void count_sort(T& arr)
+/*
+ * Complete the 'countingSort' function below.
+ *
+ * The function is expected to return an INTEGER_ARRAY.
+ * The function accepts INTEGER_ARRAY arr as parameter.
+ */
+
+
+
+int main()
 {
-    int max = *max_element(arr.begin(), arr.end());
-    int min = *min_element(arr.begin(), arr.end());
-    int range = max - min + 1;
+    ofstream fout(getenv("OUTPUT_PATH"));
 
-    vector<int> count(range);
-    vector<int> output(arr.size());
+    string n_temp;
+    getline(cin, n_temp);
 
-    for (size_t i = 0; i < arr.size(); i++)
-        count[arr[i] - min]++;
+    int n = stoi(ltrim(rtrim(n_temp)));
 
-    for (size_t i = 1; i < count.size(); i++)
-        count[i] += count[i - 1];
+    string arr_temp_temp;
+    getline(cin, arr_temp_temp);
 
-    for (int i = arr.size() - 1; i >= 0; i--)
-    {
-        output[count[arr[i] - min] - 1] = arr[i];
-        count[arr[i] - min]--;
+    vector<string> arr_temp = split(rtrim(arr_temp_temp));
+
+    vector<int> arr(n);
+
+    for (int i = 0; i < n; i++) {
+        int arr_item = stoi(arr_temp[i]);
+
+        arr[i] = arr_item;
     }
 
-    arr.swap(output);
-}
+    vector<int> result = countingSort(arr);
 
-vector<int> countingSort(vector<int> arr)
-{
-    count_sort(arr);
-    
-    return arr;
-}
+    for (size_t i = 0; i < result.size(); i++) {
+        fout << result[i];
 
+        if (i != result.size() - 1) {
+            fout << " ";
+        }
+    }
 
+    fout << "\n";
 
-string ltrim(const string &str) {
-    string s(str);
+    fout.close();
 
-    s.erase(
-        s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
-
-    return s;
+    return 0;
 }
 
