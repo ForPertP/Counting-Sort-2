@@ -22,6 +22,34 @@ class Result
      * The function accepts INTEGER_ARRAY arr as parameter.
      */
 
+    public static List<int> countingSort(List<int> arr)
+    {
+        if (arr.Count == 0) return arr;
+
+        int max = arr.Max();
+        int min = arr.Min();
+        int range = max - min + 1;
+
+        int[] count = new int[range];
+        int[] output = new int[arr.Count];
+
+        foreach (int num in arr)
+            count[num - min]++;
+
+        for (int i = 1; i < count.Length; i++)
+            count[i] += count[i - 1];
+
+        for (int i = arr.Count - 1; i >= 0; i--)
+        {
+            int num = arr[i];
+            output[count[num - min] - 1] = num;
+            count[num - min]--;
+        }
+
+        return new List<int>(output);
+    }
+}
+
 
 class Solution
 {
